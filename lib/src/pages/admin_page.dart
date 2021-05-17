@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+
 import 'package:gestor_partes/src/widgets/botones_widgets.dart';
 
+// ignore: must_be_immutable
 class AdminPage extends StatelessWidget {
   BotonesWidgets w = BotonesWidgets();
+  String _nombreCompleto;
+  String dni;
+  AdminPage(this.dni, this._nombreCompleto);
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +19,10 @@ class AdminPage extends StatelessWidget {
       body: Container(
         child: Column(
           children: [
-            w.btnCrearParte(context),
+            w.btnCrearParte(context, _nombreCompleto, dni),
+            w.btnBorradores(context, _nombreCompleto, dni),
             w.btnBuscarAlumno(context),
-            _boton('Generar Reporte'),
-            _boton('Gestionar Base de Datos'),
+            _boton(context, 'Gestionar Base de Datos'),
             w.btnSalir(),
           ],
         ),
@@ -25,7 +30,7 @@ class AdminPage extends StatelessWidget {
     );
   }
 
-  Widget _boton(String texto) {
+  Widget _boton(BuildContext context, String texto) {
     return Container(
       //height: 5.0,
       padding: EdgeInsets.all(15.0),
@@ -45,7 +50,9 @@ class AdminPage extends StatelessWidget {
                   return color;
                 }),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/.../PaginaGestionBD');
+              },
               child: Text(
                 texto,
                 style: TextStyle(fontSize: 18.0),

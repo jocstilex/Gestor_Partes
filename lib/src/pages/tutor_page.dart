@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:gestor_partes/src/controlador/funciones_controlador.dart';
 import 'package:gestor_partes/src/widgets/botones_widgets.dart';
 
+// ignore: must_be_immutable
 class TutorPage extends StatefulWidget {
+  String _nombreCompleto;
+  String cursoT;
+  String dni;
+  int _num = 0;
+  TutorPage(this.dni, this._nombreCompleto, this.cursoT, this._num);
+
   @override
   _TutorPageState createState() => _TutorPageState();
 }
 
 class _TutorPageState extends State<TutorPage> {
   BotonesWidgets w = BotonesWidgets();
-  int _num = 0;
+  Controlador c = Controlador();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,46 +28,16 @@ class _TutorPageState extends State<TutorPage> {
       body: Container(
         child: Column(
           children: [
-            w.btnCrearParte(context),
+            w.btnCrearParte(context, widget._nombreCompleto, widget.dni),
+            w.btnBorradores(context, widget._nombreCompleto, widget.dni),
             w.btnBuscarAlumno(context),
-            _boton('Ver Clase'),
+            w.botonEstadisticasClase(
+                context, 'Estadisticas Clase', widget.cursoT),
             w.btnSalir(),
           ],
         ),
       ),
       floatingActionButton: _alerts(),
-    );
-  }
-
-  Widget _boton(String texto) {
-    return Container(
-      //height: 5.0,
-      padding: EdgeInsets.all(15.0),
-      child: Row(
-        // crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: ElevatedButton(
-              style: ButtonStyle(
-                shape:
-                    MaterialStateProperty.all<OutlinedBorder>(StadiumBorder()),
-                backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                    (Set<MaterialState> states) {
-                  final Color color = states.contains(MaterialState.pressed)
-                      ? Colors.blue[200]
-                      : Colors.blue[500];
-                  return color;
-                }),
-              ),
-              onPressed: () {},
-              child: Text(
-                texto,
-                style: TextStyle(fontSize: 18.0),
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -83,7 +62,7 @@ class _TutorPageState extends State<TutorPage> {
                         margin: EdgeInsets.only(bottom: 50.0, left: 20.0),
                         padding: EdgeInsets.only(top: 20.0),
                         child: Text(
-                          '$_num',
+                          widget._num.toString(),
                           style: TextStyle(fontSize: 25.0, color: Colors.white),
                         )),
                     Container(
@@ -91,10 +70,10 @@ class _TutorPageState extends State<TutorPage> {
                       child: FloatingActionButton(
                         backgroundColor: Colors.blue[300],
                         elevation: 0,
-                        onPressed: () {
-                          setState(() {
-                            _num++;
-                          });
+                        onPressed: () async {
+                          c.resetAlertas(widget.dni);
+                          widget._num = await c.obtenerAlertas(widget.dni);
+                          setState(() {});
                         },
                         child:
                             Icon(Icons.add_alert_outlined, color: Colors.white),

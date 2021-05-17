@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gestor_partes/src/controlador/funciones_controlador.dart';
+//import 'package:gestor_partes/src/pages/pages_generarParte/parte1_pages_generarPartes.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -35,12 +36,15 @@ class _HomePageState extends State<HomePage> {
                 _inputName(),
                 Divider(),
                 _inputPassw(),
-                _crearDropDown(),
+                /* _crearDropDown(),
                 Container(
                   padding: EdgeInsets.only(top: 20.0),
                   child: Text('Nombre: $_nombre \nContraseña: $code'),
-                ),
-                _buttonNext(_optSelec),
+                ) ,*/
+
+                Container(
+                    margin: EdgeInsets.only(top: 300),
+                    child: _buttonNext(_optSelec)),
               ],
             ),
           ],
@@ -113,7 +117,7 @@ class _HomePageState extends State<HomePage> {
             ),
             onPressed: () {
               //'Tutor', 'Profesor', 'Jefatura', 'Admin'
-              switch (rol) {
+              /*   switch (rol) {
                 case 'Tutor':
                   Navigator.pushNamed(context, '/TutorPage');
                   break;
@@ -130,11 +134,12 @@ class _HomePageState extends State<HomePage> {
                   Navigator.pushNamed(context, '/PaginaPruebas');
                   break;
                 default:
-              }
-              /*  Controlador c = Controlador();
+              } */
+              Controlador c = Controlador();
               setState(() {
                 c.loginDatabase(context, _passw, _nombre);
-              }); */
+                // Navigator.pushNamed(context, '/PaginaPruebas');
+              });
             },
             child: Text('Iniciar sesión'),
           ),
@@ -143,7 +148,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  List<DropdownMenuItem<String>> getOpcionesDropDown() {
+/*  List<DropdownMenuItem<String>> getOpcionesDropDown() {
     List<DropdownMenuItem<String>> lista = [];
 
     _roles.forEach((rol) {
@@ -155,7 +160,7 @@ class _HomePageState extends State<HomePage> {
     return lista;
   }
 
-  Widget _crearDropDown() {
+    Widget _crearDropDown() {
     return Row(
       children: [
         Icon(Icons.select_all),
@@ -170,5 +175,5 @@ class _HomePageState extends State<HomePage> {
         ),
       ],
     );
-  }
+  } */
 }

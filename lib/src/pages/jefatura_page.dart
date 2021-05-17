@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gestor_partes/src/widgets/botones_widgets.dart';
 
+// ignore: must_be_immutable
 class JefaturaPage extends StatelessWidget {
+  String _nombreCompleto;
+  String dni;
   BotonesWidgets w = BotonesWidgets();
+
+  JefaturaPage(this.dni, this._nombreCompleto);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,9 +18,9 @@ class JefaturaPage extends StatelessWidget {
       body: Container(
         child: Column(
           children: [
-            w.btnCrearParte(context),
+            w.btnCrearParte(context, _nombreCompleto, dni),
+            w.btnBorradores(context, _nombreCompleto, dni),
             w.btnBuscarAlumno(context),
-            _boton('Generar Reporte'),
             _boton('Ver Estadisticas'),
             w.btnSalir(),
           ],
