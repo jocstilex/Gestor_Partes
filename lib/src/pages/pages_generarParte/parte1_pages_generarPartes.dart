@@ -105,14 +105,7 @@ class _PartePage1State extends State<PartePage1> {
         centerTitle: true,
       ),
       body: ListView(
-        //  physics: const NeverScrollableScrollPhysics(),
         children: [
-          /*
-            Versión piramide
-           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [crearInputPersonas()],
-          ), */
           crearInputPersonas(),
           _inputNameAlumno(),
           _inputCursoAl(),
@@ -157,7 +150,7 @@ class _PartePage1State extends State<PartePage1> {
               widget.tipificacion15,
               widget.tipificacion16,
               widget._nombreAlumno,
-              _optSelec,
+              widget._cursoAlumno.text,
               _inputFieldHourController.text,
               _inputFieldDateController.text,
               widget._nombreDocente.text),
