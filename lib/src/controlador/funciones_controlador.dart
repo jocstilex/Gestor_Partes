@@ -159,23 +159,14 @@ class Controlador {
 
   Future<List<Map<String, dynamic>>> obtenerPartesSinAcabarMAP(
       String nombreProfesor, String dni) async {
-    //Función que se conecta a la base de dtaos, recoge todos los usuarios
-    //y lo almacena en un array de Map<String,dynamic>
-    //de esta forma podemos acceder a todos los usuarios y datos desde la
-    //aplicación.
-    //Con esto podremos crear tantos wisgets como usuarios queramos
-
-    //Creamos las variables de array y Map
     List<Map<String, dynamic>> partes = [];
     Map<String, dynamic> partesbd;
-    //String dni = await obtenerDNI(nombreProfesor);
 
     var connection = PostgreSQLConnection(ip, 5432, "BD_Gestor_Partes",
         username: "postgres", password: "postgres");
     await connection.open();
     print('Conectandose a la base de datos....');
 
-    //WHERE dni = '$dni' AND num_parte IN(SELECT numparte FROM parte WHERE nombre_profesor = '$nombreProfesor' AND finalizado = 'false ')
     List<List<dynamic>> results = await connection.query(
         "SELECT dni,nia,num_parte FROM docente_parte_alumno WHERE dni = '$dni' AND num_parte IN(SELECT numparte FROM parte WHERE nombre_profesor = '$nombreProfesor' AND finalizado = 'false ')");
 
@@ -189,10 +180,7 @@ class Controlador {
       partes.add(partesbd);
     }
 
-    //Ahora podemos recorrer el array, y cada iteración es un map con dni,nombre, y edad
     for (int x = 0; x < partes.length; x++) {
-      //Creamos un Map donde guardar las iteraciones de Maps
-      //Y ya podemos usar los datos guardados en los Maps
       Map<String, dynamic> prueba = partes[x];
       print('DNI:' + prueba["dni"]);
       print('NIA:' + prueba["nia"]);
