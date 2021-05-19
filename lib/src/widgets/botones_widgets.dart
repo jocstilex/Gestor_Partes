@@ -792,7 +792,6 @@ De momento no es necesario. Revisar en depuración
                   onPressed: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).pop();
-                    Navigator.of(context).pop();
                   },
                   child: Text('Salir')),
             ],
